@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻醉科自費項目說明</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a5276;
+      --primary-light: #2e86c1;
+      --accent: #e8f4f8;
+      --check-color: #1a7a4a;
+      --check-bg: #eafaf1;
+      --text: #1c1c1c;
+      --text-muted: #5a6a7a;
+      --border: #d5e8f0;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: #f0f4f8;
+      color: var(--text);
+      padding-bottom: 100px;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 20px 16px 16px;
+      text-align: center;
+    }
+    .header .hosp { font-size: 13px; opacity: .8; letter-spacing: .5px; }
+    .header h1 { font-size: 19px; font-weight: 700; margin: 4px 0 6px; }
+    .header .subtitle {
+      font-size: 13px; opacity: .85;
+      background: rgba(255,255,255,.15);
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 12px;
+    }
+
+    /* ── Instructions ── */
+    .instructions {
+      background: var(--accent);
+      border-left: 4px solid var(--primary-light);
+      margin: 14px 14px 0;
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--primary);
+    }
+    .instructions strong { display: block; margin-bottom: 4px; font-size: 14px; }
+
+    /* ── Category ── */
+    .category { margin: 14px 14px 0; }
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0 0 8px;
+      border-bottom: 2px solid var(--primary-light);
+      margin-bottom: 10px;
+    }
+    .category-title .icon {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+
+    /* ── Item Card ── */
+    .item-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .item-card.checked {
+      border-color: var(--check-color);
+      background: var(--check-bg);
+    }
+
+    .item-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 14px 10px;
+      cursor: pointer;
+    }
+
+    .checkbox {
+      width: 24px; height: 24px;
+      border: 2px solid #bbb;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+      background: white;
+    }
+    .item-card.checked .checkbox {
+      background: var(--check-color);
+      border-color: var(--check-color);
+    }
+    .checkbox::after {
+      content: '';
+      width: 12px; height: 7px;
+      border-left: 2.5px solid white;
+      border-bottom: 2.5px solid white;
+      transform: rotate(-45deg) translate(1px, -1px);
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .item-card.checked .checkbox::after { opacity: 1; }
+
+    .item-info { flex: 1; }
+    .item-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .item-card.checked .item-name { color: var(--check-color); }
+
+    .item-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 5px;
+      padding: 0 14px 14px 50px;
+    }
+
+    /* ── Floating Summary Button ── */
+    .fab-wrap {
+      position: fixed;
+      bottom: 20px; left: 0; right: 0;
+      display: flex; justify-content: center;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .fab {
+      pointer-events: auto;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(26,82,118,.45);
+      transition: transform .15s, background .15s;
+    }
+    .fab:active { transform: scale(.96); }
+    .fab.hidden { display: none; }
+    .fab .badge {
+      background: #f39c12;
+      color: white;
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Summary Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      width: 100%;
+      max-height: 90vh;
+      border-radius: 20px 20px 0 0;
+      overflow-y: auto;
+      padding: 0 0 40px;
+    }
+
+    .modal-handle {
+      width: 40px; height: 4px;
+      background: #ddd;
+      border-radius: 4px;
+      margin: 12px auto 0;
+    }
+
+    .modal-header {
+      background: var(--primary);
+      color: white;
+      padding: 20px 20px 16px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .modal-header h2 { font-size: 18px; margin-bottom: 4px; }
+    .modal-header p { font-size: 13px; opacity: .85; }
+
+    .modal-body { padding: 16px 20px; }
+
+    .modal-intro {
+      background: var(--accent);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .summary-category { margin-bottom: 16px; }
+    .summary-cat-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+    .summary-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--check-bg);
+      border: 1.5px solid #a9dfbf;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--check-color);
+    }
+    .summary-item::before {
+      content: '✓';
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .modal-close-btn {
+      display: block;
+      width: calc(100% - 40px);
+      margin: 16px 20px 0;
+      background: #eee;
+      color: var(--text);
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .no-selection {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      padding: 30px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="hosp">振興醫院　麻醉科</div>
+  <h1>麻醉自費項目說明</h1>
+  <div class="subtitle">請勾選您有興趣了解的項目</div>
+</div>
+
+<div class="instructions">
+  <strong>📋 使用方式</strong>
+  閱讀各項目說明，勾選您想在術前訪視時進一步了解的項目。
+  完成後點選下方「查看我的選項」，將畫面出示給醫師。
+</div>
+
+<!-- ══════════════ 止痛 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">💊</div>
+    止痛
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">多模式術後止痛</div>
+      </div>
+    </div>
+    <div class="item-desc">結合多種藥物與技術，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、副作用也更少。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">神經阻斷術後止痛</div>
+      </div>
+    </div>
+    <div class="item-desc">手術前在特定神經附近注射麻醉藥，讓手術部位術後數小時內保持麻木，明顯減輕醒來後的疼痛感。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">硬脊膜外自控式止痛（PCA）</div>
+      </div>
+    </div>
+    <div class="item-desc">在背部放置細管，術後您可以自己按按鈕控制止痛藥的給藥量，適合腹部或胸部較大的手術。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">靜脈自控式止痛（PCA）</div>
+      </div>
+    </div>
+    <div class="item-desc">透過手上的靜脈管，您可以自己按按鈕控制靜脈止痛藥，疼痛控制更靈活，不需等護理師才能給藥。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">Precedex（右美托咪定）</div>
+      </div>
+    </div>
+    <div class="item-desc">兼具鎮靜與止痛效果的藥物，可減少其他麻醉藥的用量，術後清醒較為舒適，對心血管也相對穩定。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">Acetamol（靜脈注射乙醯氨酚）</div>
+      </div>
+    </div>
+    <div class="item-desc">靜脈版的「普拿疼」，藥效比口服快，可有效減少術後對強效止痛藥的需求，副作用少。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">Dynastat（帕瑞昔布）</div>
+      </div>
+    </div>
+    <div class="item-desc">靜脈注射的消炎止痛藥，針對術後發炎性疼痛特別有效，同時減少嗎啡類藥物的使用量。</div>
+  </div>
+</div>
+
+<!-- ══════════════ 止吐 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">🌿</div>
+    止吐
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">強效止吐藥 Aloxi（帕洛諾司瓊）</div>
+      </div>
+    </div>
+    <div class="item-desc">單次給藥可維持長達 72 小時的止吐效果，特別適合術後容易噁心嘔吐、或預計使用大量止痛藥的病人。</div>
+  </div>
+</div>
+
+<!-- ══════════════ OMT ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">⚡</div>
+    最適肌張力監測（OMT）
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">最適肌張力手術監測處置</div>
+      </div>
+    </div>
+    <div class="item-desc">手術中持續偵測肌肉放鬆程度，確保肌肉鬆弛劑用量恰到好處。可避免肌肉殘餘麻痺，讓術後呼吸恢復更順暢安全。</div>
+  </div>
+</div>
+
+<!-- ══════════════ 麻醉深度監測 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">🧠</div>
+    麻醉深度監測
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">BIS 麻醉深度監測</div>
+      </div>
+    </div>
+    <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦活動，確保麻醉深度不會太淺（避免術中清醒），也不會太深（避免藥物過量）。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">腦部血氧濃度監測（rSO₂）</div>
+      </div>
+    </div>
+    <div class="item-desc">在額頭貼上感應器，即時監測腦部的血氧供應狀況，適合較長或較複雜的手術，可提早發現腦部血流不足。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">ANI 持續疼痛指數監測</div>
+      </div>
+    </div>
+    <div class="item-desc">透過心跳變化間接偵測您對疼痛的即時反應，幫助麻醉科醫師更精準調整止痛藥用量，讓麻醉更個人化。</div>
+  </div>
+</div>
+
+<!-- ══════════════ 體溫控制 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">🌡️</div>
+    體溫控制
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">溫毯手術體溫控制術</div>
+      </div>
+    </div>
+    <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免體溫過低所引起的寒顫、出血增加及術後不適。</div>
+  </div>
+</div>
+
+<!-- ══════════════ 鎮靜 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">😴</div>
+    舒適鎮靜
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">舒適鎮靜處置術（60 分鐘以內）</div>
+      </div>
+    </div>
+    <div class="item-desc">不需全身麻醉的手術或檢查（如胃鏡、大腸鏡、小手術），給予短效鎮靜藥讓您在放鬆、半睡眠的狀態下完成，醒來通常沒有不舒服的記憶。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">舒適鎮靜處置術（60 分鐘以上）</div>
+      </div>
+    </div>
+    <div class="item-desc">同上，適用於時間較長的處置，藥物劑量與監測強度會相應調整，確保全程安全舒適。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">Byfavo（瑞馬唑侖）</div>
+      </div>
+    </div>
+    <div class="item-desc">新一代短效鎮靜藥，起效快、代謝迅速，且有拮抗劑可快速回復意識，安全性較傳統藥物更高。</div>
+  </div>
+</div>
+
+<!-- ══════════════ 呼吸道 ══════════════ -->
+<div class="category">
+  <div class="category-title">
+    <div class="icon">💨</div>
+    呼吸道管理
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">進階呼吸道通氣術</div>
+      </div>
+    </div>
+    <div class="item-desc">使用喉頭罩（LMA）等進階器材，協助您在麻醉中維持呼吸道暢通，比傳統面罩更穩定，適合特定手術姿勢或呼吸道較困難的病人。</div>
+  </div>
+
+  <div class="item-card" onclick="toggleItem(this)">
+    <div class="item-header">
+      <div class="checkbox"></div>
+      <div class="item-info">
+        <div class="item-name">高流速氧氣處置術（HFNC）</div>
+      </div>
+    </div>
+    <div class="item-desc">透過鼻腔給予高流量加溫加濕氧氣，術後用於輔助呼吸，可減少需要插管的機率，讓呼吸恢復過程更舒適。</div>
+  </div>
+</div>
+
+<!-- ══════════════ FAB ══════════════ -->
+<div class="fab-wrap">
+  <button class="fab hidden" id="fabBtn" onclick="openSummary()">
+    查看我的選項
+    <div class="badge" id="fabBadge">0</div>
+  </button>
+</div>
+
+<!-- ══════════════ Summary Modal ══════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeSummaryOnOverlay(event)">
+  <div class="modal" id="summaryModal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h2>我想了解的項目</h2>
+      <p>請將此畫面出示給醫師</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-intro">
+        以下是您勾選希望在術前訪視時進一步了解的麻醉自費項目，醫師將針對這些項目為您說明。
+      </div>
+      <div id="summaryContent"></div>
+    </div>
+    <button class="modal-close-btn" onclick="closeSummary()">← 返回繼續瀏覽</button>
+  </div>
+</div>
+
+<script>
+  const CATEGORIES = {
+    '止痛': '💊',
+    '止吐': '🌿',
+    '最適肌張力監測（OMT）': '⚡',
+    '麻醉深度監測': '🧠',
+    '體溫控制': '🌡️',
+    '舒適鎮靜': '😴',
+    '呼吸道管理': '💨',
+  };
+
+  function getItemName(card) {
+    return card.querySelector('.item-name').textContent.trim();
+  }
+
+  function getCategoryTitle(card) {
+    return card.closest('.category').querySelector('.category-title').textContent.trim();
+  }
+
+  function toggleItem(card) {
+    card.classList.toggle('checked');
+    updateFAB();
+  }
+
+  function getChecked() {
+    return Array.from(document.querySelectorAll('.item-card.checked'));
+  }
+
+  function updateFAB() {
+    const count = getChecked().length;
+    const fab = document.getElementById('fabBtn');
+    const badge = document.getElementById('fabBadge');
+    badge.textContent = count;
+    fab.classList.toggle('hidden', count === 0);
+  }
+
+  function openSummary() {
+    const checked = getChecked();
+    const byCategory = {};
+
+    checked.forEach(card => {
+      const cat = getCategoryTitle(card);
+      if (!byCategory[cat]) byCategory[cat] = [];
+      byCategory[cat].push(getItemName(card));
+    });
+
+    let html = '';
+    for (const [cat, items] of Object.entries(byCategory)) {
+      html += `<div class="summary-category">
+        <div class="summary-cat-title">${cat}</div>`;
+      items.forEach(item => {
+        html += `<div class="summary-item">${item}</div>`;
+      });
+      html += `</div>`;
+    }
+
+    document.getElementById('summaryContent').innerHTML = html;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSummary() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeSummaryOnOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeSummary();
+  }
+</script>
+
+</body>
+</html>
