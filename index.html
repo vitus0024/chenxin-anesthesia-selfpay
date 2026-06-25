@@ -65,9 +65,12 @@
       font-size: 15px;
       font-weight: 700;
       color: var(--primary);
-      padding: 0 0 8px;
-      border-bottom: 2px solid var(--primary-light);
-      margin-bottom: 10px;
+      padding: 10px 12px 10px 10px;
+      border: 2px solid var(--primary-light);
+      border-radius: 10px;
+      background: var(--accent);
+      cursor: pointer;
+      user-select: none;
     }
     .category-title .icon {
       width: 28px; height: 28px;
@@ -75,7 +78,22 @@
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       font-size: 15px;
+      flex-shrink: 0;
     }
+    .category-title .cat-chevron {
+      margin-left: auto;
+      font-size: 18px;
+      color: var(--primary);
+      transition: transform .2s;
+      line-height: 1;
+    }
+    .category.open .category-title .cat-chevron { transform: rotate(180deg); }
+
+    .category-body {
+      display: none;
+      padding-top: 8px;
+    }
+    .category.open .category-body { display: block; }
 
     /* ── Item Card ── */
     .item-card {
@@ -93,9 +111,9 @@
 
     .item-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
-      padding: 13px 12px 13px 14px;
+      padding: 13px 14px 0;
       cursor: pointer;
       user-select: none;
     }
@@ -106,6 +124,7 @@
       border: 2px solid #bbb;
       border-radius: 6px;
       flex-shrink: 0;
+      margin-top: 1px;
       display: flex; align-items: center; justify-content: center;
       transition: all .15s;
       background: white;
@@ -135,27 +154,13 @@
     }
     .item-card.checked .item-name { color: var(--check-color); }
 
-    /* Chevron */
-    .chevron {
-      width: 20px; height: 20px;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted);
-      font-size: 18px;
-      transition: transform .2s;
-      line-height: 1;
-    }
-    .item-card.open .chevron { transform: rotate(180deg); }
-
-    /* Description — hidden by default */
+    /* Description — always visible */
     .item-desc {
-      display: none;
       font-size: 13.5px;
       color: var(--text-muted);
       line-height: 1.7;
-      padding: 0 14px 14px 50px;
+      padding: 5px 14px 13px 50px;
     }
-    .item-card.open .item-desc { display: block; }
 
     /* ── Floating Summary Button ── */
     .fab-wrap {
@@ -288,225 +293,156 @@
 
 <div class="instructions">
   <strong>📋 使用方式</strong>
-  點選項目名稱可展開說明。勾選您想在術前訪視時進一步了解的項目，
+  點選大項目標題展開內容。勾選您想在術前訪視時進一步了解的項目，
   完成後點選下方「查看我的選項」，將畫面出示給醫師。
 </div>
 
 <!-- ══════════════ 止痛 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">💊</div>
     止痛
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">神經阻斷術後止痛</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">神經阻斷術後止痛</div></div>
+      <div class="item-desc">在特定神經附近注射麻醉藥，讓手術部位維持數小時麻木感，減輕手術後的疼痛感。</div>
     </div>
-    <div class="item-desc">在特定神經附近注射麻醉藥，讓手術部位維持數小時麻木感，減輕手術後的疼痛感。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">硬脊膜外自控式止痛（PCA）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">硬脊膜外自控式止痛</div></div>
+      <div class="item-desc">在背部放置給藥管路，術後可以自己按按鈕控制止痛藥的給藥時間，適合腹部等傷口較大的手術。</div>
     </div>
-    <div class="item-desc">在背部放置給藥管路，術後可以自己按按鈕控制止痛藥的給藥時間，適合腹部等傷口較大的手術。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">靜脈自控式止痛（PCA）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">靜脈自控式止痛</div></div>
+      <div class="item-desc">透過手上的點滴，您可以自己按按鈕決定止痛藥的給藥時間，緩解疼痛更即時。</div>
     </div>
-    <div class="item-desc">透過手上的點滴，您可以自己按按鈕決定止痛藥的給藥時間，緩解疼痛更即時。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">Precedex（右美托咪定）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">Precedex（右美托咪定）</div></div>
+      <div class="item-desc">兼具鎮靜與止痛效果的藥物，可減少其他麻醉藥的用量，術後清醒較為舒適，對心血管也相對穩定。</div>
     </div>
-    <div class="item-desc">兼具鎮靜與止痛效果的藥物，可減少其他麻醉藥的用量，術後清醒較為舒適，對心血管也相對穩定。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">Acetamol（靜脈注射乙醯氨酚）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">Acetamol（靜脈注射乙醯氨酚）</div></div>
+      <div class="item-desc">靜脈版的「普拿疼」，藥效比口服快，可有效減少術後對強效止痛藥的需求，副作用少。</div>
     </div>
-    <div class="item-desc">靜脈版的「普拿疼」，藥效比口服快，可有效減少術後對強效止痛藥的需求，副作用少。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">Dynastat（帕瑞昔布）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">Dynastat（帕瑞昔布）</div></div>
+      <div class="item-desc">靜脈注射的消炎止痛藥，針對術後發炎性疼痛特別有效，同時減少嗎啡類藥物的使用量。</div>
     </div>
-    <div class="item-desc">靜脈注射的消炎止痛藥，針對術後發炎性疼痛特別有效，同時減少嗎啡類藥物的使用量。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">多模式術後止痛</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">多模式術後止痛</div></div>
+      <div class="item-desc">結合多種藥物與技術，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、副作用也更少。</div>
     </div>
-    <div class="item-desc">結合多種藥物與技術，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、副作用也更少。</div>
   </div>
 </div>
 
 <!-- ══════════════ 止吐 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">🌿</div>
     止吐
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">強效止吐藥 Aloxi（帕洛諾司瓊）</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">強效止吐藥 Aloxi（帕洛諾司瓊）</div></div>
+      <div class="item-desc">單次給藥可維持長達 72 小時的止吐效果，特別適合術後容易噁心嘔吐、或預計使用大量止痛藥的病人。</div>
     </div>
-    <div class="item-desc">單次給藥可維持長達 72 小時的止吐效果，特別適合術後容易噁心嘔吐、或預計使用大量止痛藥的病人。</div>
   </div>
 </div>
 
 <!-- ══════════════ OMT ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">⚡</div>
     最適肌張力監測（OMT）
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">最適肌張力手術監測處置</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">最適肌張力手術監測處置</div></div>
+      <div class="item-desc">手術中持續偵測肌肉放鬆程度，確保肌肉鬆弛劑用量恰到好處。可避免肌肉殘餘麻痺，讓術後呼吸恢復更順暢安全。</div>
     </div>
-    <div class="item-desc">手術中持續偵測肌肉放鬆程度，確保肌肉鬆弛劑用量恰到好處。可避免肌肉殘餘麻痺，讓術後呼吸恢復更順暢安全。</div>
   </div>
 </div>
 
 <!-- ══════════════ 麻醉深度監測 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">🧠</div>
     麻醉深度監測
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">BIS 麻醉深度監測</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">BIS 麻醉深度監測</div></div>
+      <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦活動，確保麻醉深度不會太淺（避免術中清醒），也不會太深（避免藥物過量）。</div>
     </div>
-    <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦活動，確保麻醉深度不會太淺（避免術中清醒），也不會太深（避免藥物過量）。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">腦部血氧濃度監測（rSO₂）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">腦部血氧濃度監測（rSO₂）</div></div>
+      <div class="item-desc">在額頭貼上感應器，即時監測腦部的血氧供應狀況，適合較長或較複雜的手術，可提早發現腦部血流不足。</div>
     </div>
-    <div class="item-desc">在額頭貼上感應器，即時監測腦部的血氧供應狀況，適合較長或較複雜的手術，可提早發現腦部血流不足。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">ANI 持續疼痛指數監測</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">ANI 持續疼痛指數監測</div></div>
+      <div class="item-desc">透過心跳變化間接偵測您對疼痛的即時反應，幫助麻醉科醫師更精準調整止痛藥用量，讓麻醉更個人化。</div>
     </div>
-    <div class="item-desc">透過心跳變化間接偵測您對疼痛的即時反應，幫助麻醉科醫師更精準調整止痛藥用量，讓麻醉更個人化。</div>
   </div>
 </div>
 
 <!-- ══════════════ 體溫控制 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">🌡️</div>
     體溫控制
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">溫毯手術體溫控制術</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">溫毯手術體溫控制術</div></div>
+      <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免體溫過低所引起的寒顫、出血增加及術後不適。</div>
     </div>
-    <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免體溫過低所引起的寒顫、出血增加及術後不適。</div>
   </div>
 </div>
 
 <!-- ══════════════ 鎮靜 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">😴</div>
     舒適鎮靜
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">舒適鎮靜處置術（60 分鐘以內）</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">舒適鎮靜處置術（60 分鐘以內）</div></div>
+      <div class="item-desc">不需全身麻醉的手術或檢查（如胃鏡、大腸鏡、小手術），給予短效鎮靜藥讓您在放鬆、半睡眠的狀態下完成，醒來通常沒有不舒服的記憶。</div>
     </div>
-    <div class="item-desc">不需全身麻醉的手術或檢查（如胃鏡、大腸鏡、小手術），給予短效鎮靜藥讓您在放鬆、半睡眠的狀態下完成，醒來通常沒有不舒服的記憶。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">舒適鎮靜處置術（60 分鐘以上）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">舒適鎮靜處置術（60 分鐘以上）</div></div>
+      <div class="item-desc">同上，適用於時間較長的處置，藥物劑量與監測強度會相應調整，確保全程安全舒適。</div>
     </div>
-    <div class="item-desc">同上，適用於時間較長的處置，藥物劑量與監測強度會相應調整，確保全程安全舒適。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">Byfavo（瑞馬唑侖）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">Byfavo（瑞馬唑侖）</div></div>
+      <div class="item-desc">新一代短效鎮靜藥，起效快、代謝迅速，且有拮抗劑可快速回復意識，安全性較傳統藥物更高。</div>
     </div>
-    <div class="item-desc">新一代短效鎮靜藥，起效快、代謝迅速，且有拮抗劑可快速回復意識，安全性較傳統藥物更高。</div>
   </div>
 </div>
 
 <!-- ══════════════ 呼吸道 ══════════════ -->
-<div class="category">
-  <div class="category-title">
+<div class="category open">
+  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
     <div class="icon">💨</div>
     呼吸道管理
+    <div class="cat-chevron">▾</div>
   </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">進階呼吸道通氣術</div>
-      <div class="chevron">▾</div>
+  <div class="category-body">
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">進階呼吸道通氣術</div></div>
+      <div class="item-desc">使用喉頭罩（LMA）等進階器材，協助您在麻醉中維持呼吸道暢通，比傳統面罩更穩定，適合特定手術姿勢或呼吸道較困難的病人。</div>
     </div>
-    <div class="item-desc">使用喉頭罩（LMA）等進階器材，協助您在麻醉中維持呼吸道暢通，比傳統面罩更穩定，適合特定手術姿勢或呼吸道較困難的病人。</div>
-  </div>
-
-  <div class="item-card">
-    <div class="item-header" onclick="handleHeader(event, this.closest('.item-card'))">
-      <div class="checkbox"></div>
-      <div class="item-name">高流速氧氣處置術（HFNC）</div>
-      <div class="chevron">▾</div>
+    <div class="item-card" onclick="toggleItem(this)">
+      <div class="item-header"><div class="checkbox"></div><div class="item-name">高流速氧氣處置術（HFNC）</div></div>
+      <div class="item-desc">透過鼻腔給予高流量加溫加濕氧氣，術後用於輔助呼吸，可減少需要插管的機率，讓呼吸恢復過程更舒適。</div>
     </div>
-    <div class="item-desc">透過鼻腔給予高流量加溫加濕氧氣，術後用於輔助呼吸，可減少需要插管的機率，讓呼吸恢復過程更舒適。</div>
   </div>
 </div>
 
@@ -537,13 +473,13 @@
 </div>
 
 <script>
-  function handleHeader(event, card) {
-    if (event.target.closest('.checkbox')) {
-      card.classList.toggle('checked');
-      updateFAB();
-    } else {
-      card.classList.toggle('open');
-    }
+  function toggleCategory(cat) {
+    cat.classList.toggle('open');
+  }
+
+  function toggleItem(card) {
+    card.classList.toggle('checked');
+    updateFAB();
   }
 
   function getChecked() {
@@ -552,17 +488,14 @@
 
   function updateFAB() {
     const count = getChecked().length;
-    const fab = document.getElementById('fabBtn');
     document.getElementById('fabBadge').textContent = count;
-    fab.classList.toggle('hidden', count === 0);
+    document.getElementById('fabBtn').classList.toggle('hidden', count === 0);
   }
 
   function openSummary() {
-    const checked = getChecked();
     const byCategory = {};
-
-    checked.forEach(card => {
-      const cat = card.closest('.category').querySelector('.category-title').textContent.trim();
+    getChecked().forEach(card => {
+      const cat = card.closest('.category').querySelector('.category-title').childNodes[2].textContent.trim();
       if (!byCategory[cat]) byCategory[cat] = [];
       byCategory[cat].push(card.querySelector('.item-name').textContent.trim());
     });
