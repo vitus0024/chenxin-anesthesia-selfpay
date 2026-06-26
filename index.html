@@ -98,15 +98,16 @@
     /* ── Item Card ── */
     .item-card {
       background: var(--white);
-      border: 1.5px solid var(--border);
+      border: 2px solid var(--border);
       border-radius: 12px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       overflow: hidden;
-      transition: border-color .2s;
+      transition: border-color .25s, box-shadow .25s, background .25s;
     }
     .item-card.checked {
       border-color: var(--check-color);
       background: var(--check-bg);
+      box-shadow: 0 0 0 3px rgba(26,122,74,.18), 0 4px 18px rgba(26,122,74,.14);
     }
 
     .item-header {
@@ -147,7 +148,7 @@
     /* Item name */
     .item-name {
       flex: 1;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--text);
       line-height: 1.4;
@@ -156,11 +157,12 @@
 
     /* Description — always visible */
     .item-desc {
-      font-size: 13.5px;
+      font-size: 16px;
       color: var(--text-muted);
-      line-height: 1.7;
-      padding: 5px 14px 13px 50px;
+      line-height: 1.9;
+      padding: 6px 16px 16px 52px;
     }
+    .item-desc b { color: var(--text); font-weight: 600; }
 
     /* ── Floating Summary Button ── */
     .fab-wrap {
@@ -311,31 +313,31 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">神經阻斷術後止痛</div></div>
-      <div class="item-desc">在特定神經附近注射麻醉藥，讓手術部位維持數小時麻木感，減輕手術後的疼痛感。</div>
+      <div class="item-desc">在特定神經附近注射麻醉藥，讓手術部位維持<b>數小時麻木感</b>，減輕手術後的疼痛感。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">硬脊膜外自控式止痛</div></div>
-      <div class="item-desc">在背部放置給藥管路，術後可以自己按按鈕控制給藥時間，適合腹部等傷口較大的手術。</div>
+      <div class="item-desc">在背部<b>放置給藥管路</b>，術後可以自己<b>按按鈕控制</b>給藥時間，適合腹部等傷口較大的手術。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">靜脈自控式止痛</div></div>
-      <div class="item-desc">透過手上的點滴，可以自己按按鈕控制給藥時間，緩解疼痛更即時。</div>
+      <div class="item-desc">透過手上的點滴，可以<b>自己按按鈕控制</b>給藥時間，緩解疼痛更即時。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">Precedex（普利斯德）</div></div>
-      <div class="item-desc">兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是不會抑制呼吸，術後醒來較舒適，對心血管也相對穩定（較常見的反應是心跳偏慢，會在儀器監測下使用）。</div>
+      <div class="item-desc">兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>不會抑制呼吸</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">Acetamol 舒疼消熱注射劑（靜脈注射乙醯氨酚）</div></div>
-      <div class="item-desc">點滴版的「普拿疼」，藥效比口服更快發揮，能有效減少術後對強效止痛藥的需求，減少副作用。</div>
+      <div class="item-desc">點滴版的「<b>普拿疼</b>」，藥效比口服更快發揮，能有效<b>減少術後對強效止痛藥的需求</b>，減少副作用。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">Dynastat（得術泰）</div></div>
-      <div class="item-desc">點滴注射的消炎止痛藥，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（約降低三成）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。</div>
+      <div class="item-desc">點滴注射的<b>消炎止痛藥</b>，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（<b>約降低三成</b>）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">多模式術後止痛</div></div>
-      <div class="item-desc">結合多種藥物與技術，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、副作用也更少。</div>
+      <div class="item-desc">結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。</div>
     </div>
   </div>
 </div>
@@ -350,7 +352,7 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">Aloxi（嘔立舒）</div></div>
-      <div class="item-desc">強效、長效的止吐藥，是目前少數能同時預防「急性」與「延遲性」噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。</div>
+      <div class="item-desc">強效、長效的止吐藥，是目前少數能同時預防<b>「急性」與「延遲性」</b>噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。</div>
     </div>
   </div>
 </div>
@@ -365,7 +367,7 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">最適肌力處置（OMT，最適肌張力手術輔助處置）</div></div>
-      <div class="item-desc">手術中利用手部皮膚貼片刺激神經、測量手指肌肉張力，持續偵測肌肉放鬆的程度，確保肌肉鬆弛劑用量恰到好處。手術結束時，再搭配新一代專一性解藥（sugammadex），直接中和體內的肌肉鬆弛劑，讓肌肉力量迅速且完全恢復。可避免肌肉殘餘麻痺造成的術後無力、喘不過氣，讓呼吸恢復更順暢安全。</div>
+      <div class="item-desc">手術中利用手部皮膚貼片刺激神經、測量手指肌肉張力，持續偵測肌肉放鬆的程度，確保<b>肌肉鬆弛劑用量恰到好處</b>。手術結束時，再搭配新一代專一性解藥（sugammadex），直接中和體內的肌肉鬆弛劑，讓肌肉力量<b>迅速且完全恢復</b>。可避免<b>肌肉殘餘麻痺</b>造成的術後無力、喘不過氣，讓呼吸恢復更順暢安全。</div>
     </div>
   </div>
 </div>
@@ -380,15 +382,15 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">BIS 麻醉深度監測</div></div>
-      <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦前額的腦波活動並換算成數字（0～100 分），分數越高代表越清醒，40～60 分代表已達全身麻醉的深度。可確保麻醉不會太淺（避免術中清醒、留下不好的記憶），也不會太深（避免藥物過量、甦醒變慢）。</div>
+      <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦前額的腦波活動並換算成數字（<b>0～100 分</b>），分數越高代表越清醒，<b>40～60 分</b>代表已達全身麻醉的深度。可確保麻醉<b>不會太淺</b>（避免術中清醒、留下不好的記憶），也<b>不會太深</b>（避免藥物過量、甦醒變慢）。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">腦部血氧濃度監測（rSO₂）</div></div>
-      <div class="item-desc">在額頭貼上感應器，即時監測腦部的氧氣供應狀況，適合較長或較複雜的手術（如心臟手術），可提早發現腦部血流或供氧不足，降低術後腦部相關風險。</div>
+      <div class="item-desc">在額頭貼上感應器，即時監測<b>腦部的氧氣供應</b>狀況，適合較長或較複雜的手術（如心臟手術），可<b>提早發現腦部血流或供氧不足</b>，降低術後腦部相關風險。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">術中疼痛指數監測（ANI，持續疼痛監測）</div></div>
-      <div class="item-desc">透過心跳的細微變化，間接偵測您在麻醉中對疼痛的即時反應。因為麻醉時無法用言語表達痛感，這項監測能幫助麻醉科醫師更精準地調整止痛藥用量，讓麻醉更個人化。</div>
+      <div class="item-desc">透過<b>心跳的細微變化</b>，間接偵測您在麻醉中對疼痛的即時反應。因為麻醉時無法用言語表達痛感，這項監測能幫助麻醉科醫師<b>更精準地調整止痛藥用量</b>，讓麻醉更個人化。</div>
     </div>
   </div>
 </div>
@@ -403,7 +405,7 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">溫毯手術體溫控制術</div></div>
-      <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免體溫過低所引起的寒顫、出血增加及術後不適。</div>
+      <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免<b>體溫過低</b>所引起的<b>寒顫</b>、出血增加及術後不適。</div>
     </div>
   </div>
 </div>
@@ -418,11 +420,11 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">舒適鎮靜處置術</div></div>
-      <div class="item-desc">適用在不需全身麻醉的手術或檢查，給予短效鎮靜藥讓您在放鬆、半睡眠的狀態下完成，減少緊張與焦慮，過程通常不太會留下記憶。全程由麻醉專業人員監測呼吸、心跳、血壓與血氧，並依處置時間長短調整藥物劑量與監測強度，確保安全舒適。</div>
+      <div class="item-desc">適用在不需全身麻醉的手術或檢查，給予短效鎮靜藥讓您在<b>放鬆、半睡眠的狀態</b>下完成，減少緊張與焦慮，過程通常<b>不太會留下記憶</b>。全程由麻醉專業人員監測<b>呼吸、心跳、血壓與血氧</b>，並依處置時間長短調整藥物劑量與監測強度，確保安全舒適。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">Byfavo（倍佛若）</div></div>
-      <div class="item-desc">新一代短效鎮靜藥，起效快、代謝迅速，且有專屬拮抗劑（flumazenil）可快速恢復意識，安全性較傳統鎮靜藥更高。</div>
+      <div class="item-desc">新一代短效鎮靜藥，<b>起效快、代謝迅速</b>，且有專屬拮抗劑（flumazenil）可<b>快速恢復意識</b>，安全性較傳統鎮靜藥更高。</div>
     </div>
   </div>
 </div>
@@ -437,11 +439,11 @@
   <div class="category-body">
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">進階呼吸道通氣術（喉頭罩 LMA／影像式插管系統）</div></div>
-      <div class="item-desc">全身麻醉時，運用喉頭罩（LMA）或影像式插管系統協助維持呼吸道暢通，比傳統面罩更穩定、也減少插管對喉嚨的刺激；尤其適合手術姿勢特殊或呼吸道較困難（如肥胖、短頸、張口困難）的病人，提升麻醉安全並降低術後喉嚨不適。</div>
+      <div class="item-desc">全身麻醉時，運用喉頭罩（LMA）或影像式插管系統協助維持<b>呼吸道暢通</b>，比傳統面罩更穩定、也<b>減少插管對喉嚨的刺激</b>；尤其適合手術姿勢特殊或呼吸道較困難（如肥胖、短頸、張口困難）的病人，提升麻醉安全並降低術後喉嚨不適。</div>
     </div>
     <div class="item-card" onclick="toggleItem(this)">
       <div class="item-header"><div class="checkbox"></div><div class="item-name">高流量氧氣鼻導管（HFNC，高流速氧氣處置術）</div></div>
-      <div class="item-desc">透過鼻導管提供加溫、加濕的高流量氧氣（每分鐘可達 60～70 公升，遠高於傳統面罩），穩定血氧、減少插管機會，配戴時仍能說話進食，常用於術中或術後輔助呼吸，提升麻醉安全與舒適度。</div>
+      <div class="item-desc">透過鼻導管提供加溫、加濕的高流量氧氣（每分鐘可達 <b>60～70 公升</b>，遠高於傳統面罩），穩定血氧、減少插管機會，配戴時仍能<b>說話進食</b>，常用於術中或術後輔助呼吸，提升麻醉安全與舒適度。</div>
     </div>
   </div>
 </div>
