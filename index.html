@@ -52,10 +52,20 @@
       flex-shrink: 0;
     }
     .hosp-name {
-      font-size: 12px;
-      opacity: .85;
-      line-height: 1.4;
+      line-height: 1.3;
       letter-spacing: .3px;
+    }
+    .hosp-name .hosp-sub {
+      font-size: 11px;
+      opacity: .8;
+      display: block;
+    }
+    .hosp-name .hosp-main {
+      font-size: 18px;
+      font-weight: 700;
+      opacity: 1;
+      display: block;
+      letter-spacing: .5px;
     }
     .dept-name {
       flex: 1;
@@ -72,7 +82,7 @@
       gap: 8px;
     }
     .header-nav-spacer img { height: 36px; }
-    .header-nav-spacer .hosp-name { font-size: 12px; line-height: 1.4; }
+    .header-nav-spacer .hosp-name { line-height: 1.3; }
     .header h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; text-align: center; }
     .header .subtitle {
       font-size: 15px; opacity: .85;
@@ -331,12 +341,12 @@
   <div class="header-nav">
     <div class="hosp-brand">
       <img src="https://www.chgh.org.tw/Images/logoalone.png" alt="振興醫院">
-      <div class="hosp-name">振興醫療財團法人<br>振興醫院</div>
+      <div class="hosp-name"><span class="hosp-sub">振興醫療財團法人</span><span class="hosp-main">振興醫院</span></div>
     </div>
     <div class="dept-name">麻醉部</div>
     <div class="header-nav-spacer" aria-hidden="true">
       <img src="https://www.chgh.org.tw/Images/logoalone.png" alt="">
-      <div class="hosp-name">振興醫療財團法人<br>振興醫院</div>
+      <div class="hosp-name"><span class="hosp-sub">振興醫療財團法人</span><span class="hosp-main">振興醫院</span></div>
     </div>
   </div>
   <h1>麻醉自費項目說明</h1>
