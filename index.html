@@ -60,6 +60,7 @@
     .cat-card[data-cat="1"] { border-color: #ddd0f0; } .cat-card[data-cat="1"] .cat-icon-wrap { background: #f0e8fc; }
     .cat-card[data-cat="2"] { border-color: #b8dfd4; } .cat-card[data-cat="2"] .cat-icon-wrap { background: #e0f5ef; }
     .cat-card[data-cat="3"] { border-color: #f0d8c0; } .cat-card[data-cat="3"] .cat-icon-wrap { background: #fdf0e0; }
+    .cat-card[data-cat="4"] { border-color: #d0e8d0; } .cat-card[data-cat="4"] .cat-icon-wrap { background: #e8f5e8; }
     .cat-label { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; }
     .cat-count { margin-top: 8px; font-size: 13px; color: var(--text-muted); }
     /* Items view */
@@ -134,12 +135,12 @@
   <div class="cat-card" data-cat="0" onclick="openCategory(0)">
     <div class="cat-icon-wrap">💊</div>
     <div class="cat-label">我怕手術後很痛</div>
-    <div class="cat-count">8 個選項</div>
+    <div class="cat-count">6 個選項</div>
   </div>
   <div class="cat-card" data-cat="1" onclick="openCategory(1)">
     <div class="cat-icon-wrap">🤢</div>
     <div class="cat-label">我怕醒來想吐、頭暈不舒服</div>
-    <div class="cat-count">1 個選項</div>
+    <div class="cat-count">3 個選項</div>
   </div>
   <div class="cat-card" data-cat="2" onclick="openCategory(2)">
     <div class="cat-icon-wrap">🧠</div>
@@ -149,7 +150,12 @@
   <div class="cat-card" data-cat="3" onclick="openCategory(3)">
     <div class="cat-icon-wrap">🌡️</div>
     <div class="cat-label">我怕呼吸不順、發冷發抖</div>
-    <div class="cat-count">5 個選項</div>
+    <div class="cat-count">3 個選項</div>
+  </div>
+  <div class="cat-card" data-cat="4" onclick="openCategory(4)" style="grid-column: 1 / -1;">
+    <div class="cat-icon-wrap">😌</div>
+    <div class="cat-label">我怕過程緊張、不舒服</div>
+    <div class="cat-count">3 個選項</div>
   </div>
 </div>
 </div>
@@ -186,14 +192,14 @@ const CATEGORIES = [
     { name: '神經阻斷術後止痛', desc: '在特定神經附近注射麻醉藥，讓手術部位維持<b>數小時麻木感</b>，減輕手術後的疼痛感。' },
     { name: '硬脊膜外自控式止痛', desc: '在背部<b>放置給藥管路</b>，術後可以自己<b>按按鈕控制</b>給藥時間，適合腹部等傷口較大的手術。' },
     { name: '靜脈自控式止痛', desc: '透過手上的點滴，可以<b>自己按按鈕控制</b>給藥時間，緩解疼痛更即時。' },
-    { name: '多模式術後止痛', desc: '結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。' },
     { name: 'Acetamol 舒疼消熱注射劑（靜脈注射乙醯氨酚）', desc: '點滴版的「<b>普拿疼</b>」，藥效比口服更快發揮，能有效減少術後對強效止痛藥的需求，減少副作用。' },
     { name: 'Dynastat（得術泰）', desc: '點滴注射的<b>消炎止痛藥</b>，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（<b>約降低三成</b>）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。' },
-    { name: 'Precedex（普利斯德）', desc: '兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>對呼吸抑制相對較少</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。' },
     { name: 'Naldebain 長效型止痛藥', desc: '術前施打的長效止痛針，可在手術後提供較持續的<b>背景止痛</b>，幫助減少術後幾天的疼痛不適。' }
   ]},
   { title: '我怕醒來想吐、頭暈、不舒服', items: [
-    { name: 'Aloxi（嘔立舒）', desc: '強效、長效的止吐藥，是目前少數能同時預防<b>「急性」與「延遲性」</b>噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。' }
+    { name: 'Aloxi（嘔立舒）', desc: '強效、長效的止吐藥，是目前少數能同時預防<b>「急性」與「延遲性」</b>噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。' },
+    { name: '全靜脈麻醉方式搭配腦波麻醉深度監測', desc: '透過 BIS 腦波麻醉深度監測，搭配以點滴藥物為主的<b>全靜脈麻醉方式</b>，減少傳統吸入性麻醉藥造成的<b>術後噁心風險</b>，也讓麻醉過程更個人化、醒來品質更穩定。' },
+    { name: '多模式術後止痛', desc: '結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。' }
   ]},
   { title: '我怕麻醉太深、太淺，或醒來不順利', items: [
     { name: 'BIS 麻醉深度監測', desc: '在額頭貼上感應貼片，即時偵測大腦前額的腦波活動並換算成數字（<b>0～100 分</b>），分數越高代表越清醒，<b>40～60 分</b>代表已達全身麻醉的深度。可確保麻醉<b>不會太淺</b>（避免術中清醒、留下不好的記憶），也<b>不會太深</b>（避免藥物過量、甦醒變慢）。' },
@@ -203,9 +209,12 @@ const CATEGORIES = [
   { title: '我怕呼吸不順、發冷發抖，想讓過程更安心舒服', items: [
     { name: '最適肌力處置（OMT，最適肌張力手術輔助處置）', desc: '手術中利用手部皮膚貼片刺激神經、測量手指肌肉張力，持續偵測肌肉放鬆的程度，確保<b>肌肉鬆弛劑用量恰到好處</b>。手術結束時，再搭配新一代專一性解藥（sugammadex），讓肌肉力量<b>迅速且完全恢復</b>，可避免<b>肌肉殘餘麻痺</b>造成的術後無力、喘不過氣。' },
     { name: '高流量氧氣鼻導管（HFNC，高流速氧氣處置術）', desc: '透過鼻導管提供加溫、加濕的高流量氧氣（每分鐘可達 <b>60～70 公升</b>，遠高於傳統面罩），穩定血氧、減少插管機會，配戴時仍能<b>說話進食</b>，常用於術中或術後輔助呼吸。' },
-    { name: '溫毯手術體溫控制術', desc: '手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免<b>體溫過低</b>所引起的<b>寒顫</b>、出血增加及術後不適。' },
+    { name: '溫毯手術體溫控制術', desc: '手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免<b>體溫過低</b>所引起的<b>寒顫</b>、出血增加及術後不適。' }
+  ]},
+  { title: '我怕過程緊張、不舒服', items: [
     { name: '舒適鎮靜處置術', desc: '適用在不需全身麻醉的手術或檢查，給予短效鎮靜藥讓您在<b>放鬆、半睡眠的狀態</b>下完成，過程通常<b>不太會留下記憶</b>。全程監測<b>呼吸、心跳、血壓與血氧</b>，確保安全舒適。' },
-    { name: 'Byfavo（倍佛若）', desc: '新一代短效鎮靜藥，<b>起效快、代謝迅速</b>，且有專屬拮抗劑（flumazenil）可<b>快速恢復意識</b>，安全性較傳統鎮靜藥更高。' }
+    { name: 'Byfavo（倍佛若）', desc: '新一代短效鎮靜藥，<b>起效快、代謝迅速</b>，且有專屬拮抗劑（flumazenil）可<b>快速恢復意識</b>，安全性較傳統鎮靜藥更高。' },
+    { name: 'Precedex（普利斯德）', desc: '兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>對呼吸抑制相對較少</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。' }
   ]}
 ];
 
