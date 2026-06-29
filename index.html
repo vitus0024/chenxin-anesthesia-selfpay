@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>麻醉科自費項目說明</title>
+  <title>手術麻醉安心選項說明｜振興醫院麻醉部</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --primary: #3a3a8f;
       --primary-light: #5B5BA4;
@@ -15,519 +14,166 @@
       --check-bg: #eafaf1;
       --text: #1c1c1c;
       --text-muted: #5a6a7a;
-      --border: #d5e8f0;
+      --border: #d5d5ee;
       --white: #ffffff;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
       background: #f5f2fa;
       color: var(--text);
       padding-bottom: 100px;
+      min-height: 100vh;
     }
-
-    /* ── Header ── */
-    .header {
-      background: var(--primary);
-      color: white;
-      padding: 12px 16px 16px;
-    }
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .hosp-brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .hosp-brand img {
-      height: 44px;
-      width: auto;
-      background: white;
-      border-radius: 8px;
-      padding: 3px 5px;
-      flex-shrink: 0;
-    }
-    .hosp-name {
-      line-height: 1.3;
-      letter-spacing: .3px;
-    }
-    .hosp-name .hosp-sub {
-      font-size: 11px;
-      opacity: .8;
-      display: block;
-    }
-    .hosp-name .hosp-main {
-      font-size: 22px;
-      font-weight: 700;
-      opacity: 1;
-      display: block;
-      letter-spacing: .5px;
-    }
-    .dept-name {
-      flex: 1;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-    .header-nav-spacer {
-      /* 與左側品牌區等寬，讓科別名稱視覺置中 */
-      visibility: hidden;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    /* Header */
+    .header { background: var(--primary); color: white; padding: 12px 16px 18px; }
+    .header-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .hosp-brand { display: flex; align-items: center; gap: 8px; }
+    .hosp-brand img { height: 44px; width: auto; background: white; border-radius: 8px; padding: 3px 5px; flex-shrink: 0; }
+    .hosp-name { line-height: 1.3; letter-spacing: .3px; }
+    .hosp-sub { font-size: 11px; opacity: .8; display: block; }
+    .hosp-main { font-size: 22px; font-weight: 700; display: block; letter-spacing: .5px; }
+    .dept-name { flex: 1; text-align: center; font-size: 22px; font-weight: 700; letter-spacing: 2px; }
+    .header-nav-spacer { visibility: hidden; display: flex; align-items: center; gap: 8px; }
     .header-nav-spacer img { height: 44px; }
-    .header-nav-spacer .hosp-name { line-height: 1.3; }
-    .header h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; text-align: center; }
-    .header .subtitle {
-      font-size: 15px; opacity: .85;
-      background: rgba(255,255,255,.15);
-      display: block;
-      text-align: center;
-      border-radius: 20px;
-      padding: 3px 12px;
+    .header-titles { text-align: center; }
+    .header-titles h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .header-titles .subtitle { font-size: 14px; opacity: .88; line-height: 1.6; background: rgba(255,255,255,.12); border-radius: 10px; padding: 8px 14px; display: inline-block; text-align: left; }
+    /* Instructions */
+    .instructions { background: var(--accent); border-left: 4px solid var(--primary-light); margin: 14px 14px 0; padding: 12px 14px; border-radius: 0 8px 8px 0; font-size: 16px; line-height: 1.7; color: var(--primary); }
+    .instructions strong { display: block; margin-bottom: 4px; font-size: 16px; }
+    .notice { background: #fef9f0; border-left: 4px solid #e67e22; margin: 8px 14px 0; padding: 12px 14px; border-radius: 0 8px 8px 0; font-size: 16px; line-height: 1.7; color: #7d4e00; }
+    .notice strong { display: block; margin-bottom: 4px; font-size: 16px; }
+    /* Category Grid */
+    #view-grid { display: block; }
+    #view-items { display: none; }
+    .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 14px; }
+    .cat-card {
+      background: var(--white); border-radius: 16px; padding: 20px 12px 18px;
+      text-align: center; cursor: pointer; border: 2px solid #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      transition: transform .15s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    /* ── Instructions ── */
-    .instructions {
-      background: var(--accent);
-      border-left: 4px solid var(--primary-light);
-      margin: 14px 14px 0;
-      padding: 12px 14px;
-      border-radius: 0 8px 8px 0;
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--primary);
-    }
-    .instructions strong { display: block; margin-bottom: 4px; font-size: 18px; }
-
-    /* ── Category ── */
-    .category { margin: 14px 14px 0; }
-    .category-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary);
-      padding: 10px 12px 10px 10px;
-      border: 2px solid var(--primary-light);
-      border-radius: 10px;
-      background: var(--accent);
-      cursor: pointer;
-      user-select: none;
-    }
-    .category-title .icon {
-      width: 32px; height: 32px;
-      background: var(--primary);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .category-title .cat-chevron {
-      margin-left: auto;
-      font-size: 18px;
-      color: var(--primary);
-      transition: transform .2s;
-      line-height: 1;
-    }
-    .category.open .category-title .cat-chevron { transform: rotate(180deg); }
-
-    .category-body {
-      display: none;
-      padding-top: 8px;
-    }
-    .category.open .category-body { display: block; }
-
-    /* ── Item Card ── */
-    .item-card {
-      background: var(--white);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 10px;
-      overflow: hidden;
-      transition: border-color .25s, box-shadow .25s, background .25s;
-    }
-    .item-card.checked {
-      border-color: var(--check-color);
-      background: var(--check-bg);
-      box-shadow: 0 0 0 3px rgba(26,122,74,.18), 0 4px 18px rgba(26,122,74,.14);
-    }
-
-    .item-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 13px 14px 0;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* Checkbox */
-    .checkbox {
-      width: 24px; height: 24px;
-      border: 2px solid #bbb;
-      border-radius: 6px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .15s;
-      background: white;
-    }
-    .item-card.checked .checkbox {
-      background: var(--check-color);
-      border-color: var(--check-color);
-    }
-    .checkbox::after {
-      content: '';
-      width: 12px; height: 7px;
-      border-left: 2.5px solid white;
-      border-bottom: 2.5px solid white;
-      transform: rotate(-45deg) translate(1px, -1px);
-      opacity: 0;
-      transition: opacity .15s;
-    }
+    .cat-card:active { transform: scale(.97); }
+    .cat-icon-wrap { border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 32px; }
+    .cat-card[data-cat="0"] { border-color: #c8dff5; } .cat-card[data-cat="0"] .cat-icon-wrap { background: #e8f3fc; }
+    .cat-card[data-cat="1"] { border-color: #ddd0f0; } .cat-card[data-cat="1"] .cat-icon-wrap { background: #f0e8fc; }
+    .cat-card[data-cat="2"] { border-color: #b8dfd4; } .cat-card[data-cat="2"] .cat-icon-wrap { background: #e0f5ef; }
+    .cat-card[data-cat="3"] { border-color: #f0d8c0; } .cat-card[data-cat="3"] .cat-icon-wrap { background: #fdf0e0; }
+    .cat-label { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .cat-count { margin-top: 8px; font-size: 13px; color: var(--text-muted); }
+    /* Items view */
+    .items-header { background: var(--primary); color: white; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+    .back-btn { background: rgba(255,255,255,.2); border: none; color: white; border-radius: 8px; padding: 6px 12px; font-size: 15px; cursor: pointer; flex-shrink: 0; }
+    .items-header-title { flex: 1; font-size: 16px; font-weight: 700; line-height: 1.4; }
+    .items-list { padding: 12px 14px; }
+    /* Item Card */
+    .item-card { background: var(--white); border: 2px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; transition: border-color .25s, box-shadow .25s, background .25s; }
+    .item-card.checked { border-color: var(--check-color); background: var(--check-bg); box-shadow: 0 0 0 3px rgba(26,122,74,.18), 0 4px 18px rgba(26,122,74,.14); }
+    .item-header { display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px 0; cursor: pointer; user-select: none; }
+    .checkbox { width: 26px; height: 26px; border: 2px solid #bbb; border-radius: 7px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .15s; background: white; }
+    .item-card.checked .checkbox { background: var(--check-color); border-color: var(--check-color); }
+    .checkbox::after { content: ''; width: 13px; height: 8px; border-left: 2.5px solid white; border-bottom: 2.5px solid white; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; transition: opacity .15s; }
     .item-card.checked .checkbox::after { opacity: 1; }
-
-    /* Item name */
-    .item-name {
-      flex: 1;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.4;
-    }
+    .item-name { flex: 1; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.4; }
     .item-card.checked .item-name { color: var(--check-color); }
-
-    /* Description — always visible */
-    .item-desc {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.9;
-      padding: 6px 16px 16px 52px;
-    }
+    .item-desc { font-size: 16px; color: var(--text-muted); line-height: 1.9; padding: 6px 16px 16px 52px; }
     .item-desc b { color: var(--text); font-weight: 600; }
-
-    /* ── Floating Summary Button ── */
-    .fab-wrap {
-      position: fixed;
-      bottom: 20px; left: 0; right: 0;
-      display: flex; justify-content: center;
-      z-index: 100;
-      pointer-events: none;
-    }
-    .fab {
-      pointer-events: auto;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 14px 28px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 4px 20px rgba(26,82,118,.45);
-      transition: transform .15s;
-    }
+    /* FAB */
+    .fab-wrap { position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; z-index: 100; pointer-events: none; }
+    .fab { pointer-events: auto; background: var(--primary); color: white; border: none; border-radius: 50px; padding: 14px 28px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(58,58,143,.45); transition: transform .15s; }
     .fab:active { transform: scale(.96); }
     .fab.hidden { display: none; }
-    .fab .badge {
-      background: #f39c12;
-      color: white;
-      border-radius: 50%;
-      width: 24px; height: 24px;
-      font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ── Summary Modal ── */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.5);
-      z-index: 200;
-      display: none;
-      align-items: flex-end;
-    }
+    .fab .badge { background: #f39c12; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: none; align-items: flex-end; }
     .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: white;
-      width: 100%;
-      max-height: 90vh;
-      border-radius: 20px 20px 0 0;
-      overflow-y: auto;
-      padding: 0 0 40px;
-    }
-
-    .modal-handle {
-      width: 40px; height: 4px;
-      background: #ddd;
-      border-radius: 4px;
-      margin: 12px auto 0;
-    }
-
-    .modal-header {
-      background: var(--primary);
-      color: white;
-      padding: 20px 20px 16px;
-      text-align: center;
-      margin-top: 8px;
-    }
+    .modal { background: white; width: 100%; max-height: 90vh; border-radius: 20px 20px 0 0; overflow-y: auto; padding: 0 0 40px; }
+    .modal-handle { width: 40px; height: 4px; background: #ddd; border-radius: 4px; margin: 12px auto 0; }
+    .modal-header { background: var(--primary); color: white; padding: 20px 20px 16px; text-align: center; margin-top: 8px; }
     .modal-header h2 { font-size: 20px; margin-bottom: 4px; }
     .modal-header p { font-size: 15px; opacity: .85; }
-
     .modal-body { padding: 16px 20px; }
-
-    .modal-intro {
-      background: var(--accent);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 16px;
-      color: var(--primary);
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-
+    .modal-intro { background: var(--accent); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--primary); margin-bottom: 16px; line-height: 1.6; }
     .summary-category { margin-bottom: 16px; }
-    .summary-cat-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: .5px;
-      margin-bottom: 6px;
-    }
-    .summary-item {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--check-bg);
-      border: 1.5px solid #a9dfbf;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 6px;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--check-color);
-    }
-    .summary-item::before {
-      content: '✓';
-      font-weight: 700;
-      font-size: 17px;
-    }
-
-    .modal-close-btn {
-      display: block;
-      width: calc(100% - 40px);
-      margin: 16px 20px 0;
-      background: #eee;
-      color: var(--text);
-      border: none;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 17px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+    .summary-cat-title { font-size: 15px; font-weight: 700; color: var(--text-muted); letter-spacing: .5px; margin-bottom: 6px; }
+    .summary-item { display: flex; align-items: center; gap: 10px; background: var(--check-bg); border: 1.5px solid #a9dfbf; border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; font-size: 17px; font-weight: 600; color: var(--check-color); }
+    .summary-item::before { content: '✓'; font-weight: 700; font-size: 17px; }
+    .modal-close-btn { display: block; width: calc(100% - 40px); margin: 16px 20px 0; background: #eee; color: var(--text); border: none; border-radius: 10px; padding: 14px; font-size: 17px; cursor: pointer; font-weight: 600; }
   </style>
 </head>
 <body>
 
+<div id="view-grid">
 <div class="header">
   <div class="header-nav">
     <div class="hosp-brand">
       <img src="https://www.chgh.org.tw/Images/logoalone.png" alt="振興醫院">
-      <div class="hosp-name"><span class="hosp-sub">振興醫療財團法人</span><span class="hosp-main">振興醫院</span></div>
+      <div class="hosp-name">
+        <span class="hosp-sub">振興醫療財團法人</span>
+        <span class="hosp-main">振興醫院</span>
+      </div>
     </div>
     <div class="dept-name">麻醉部</div>
     <div class="header-nav-spacer" aria-hidden="true">
       <img src="https://www.chgh.org.tw/Images/logoalone.png" alt="">
-      <div class="hosp-name"><span class="hosp-sub">振興醫療財團法人</span><span class="hosp-main">振興醫院</span></div>
+      <div class="hosp-name">
+        <span class="hosp-sub">振興醫療財團法人</span>
+        <span class="hosp-main">振興醫院</span>
+      </div>
     </div>
   </div>
-  <h1>麻醉自費項目說明</h1>
-  <div class="subtitle">請勾選您有興趣了解的項目</div>
+  <div class="header-titles">
+    <h1>手術麻醉安心選項說明</h1>
+    <div class="subtitle">讓您在手術前，更清楚知道有哪些方式<br>可以提升安全、舒適與恢復品質</div>
+  </div>
+</div>
+<div class="instructions"><strong>📋 使用方式</strong>選擇您最在意的項目，進入後勾選有興趣了解的選項，完成後點「查看我的選項」出示給醫師。</div>
+<div class="notice"><strong>📌 提醒</strong>各項目是否適合您，需依個人病史、手術類型與麻醉方式而定。實際是否使用，請與麻醉科醫師討論。</div>
+<div class="cat-grid">
+  <div class="cat-card" data-cat="0" onclick="openCategory(0)">
+    <div class="cat-icon-wrap">💊</div>
+    <div class="cat-label">我怕手術後很痛</div>
+    <div class="cat-count">8 個選項</div>
+  </div>
+  <div class="cat-card" data-cat="1" onclick="openCategory(1)">
+    <div class="cat-icon-wrap">🤢</div>
+    <div class="cat-label">我怕醒來想吐、頭暈不舒服</div>
+    <div class="cat-count">1 個選項</div>
+  </div>
+  <div class="cat-card" data-cat="2" onclick="openCategory(2)">
+    <div class="cat-icon-wrap">🧠</div>
+    <div class="cat-label">我怕麻醉太深、太淺或醒來不順利</div>
+    <div class="cat-count">3 個選項</div>
+  </div>
+  <div class="cat-card" data-cat="3" onclick="openCategory(3)">
+    <div class="cat-icon-wrap">🌡️</div>
+    <div class="cat-label">我怕呼吸不順、發冷發抖</div>
+    <div class="cat-count">5 個選項</div>
+  </div>
+</div>
 </div>
 
-<div class="instructions">
-  <strong>📋 使用方式</strong>
-  點選大項目標題展開內容。勾選您想在術前訪視時進一步了解的項目，
-  完成後點選下方「查看我的選項」，將畫面出示給醫師。
-</div>
-<div class="instructions" style="margin-top:8px;border-left-color:#e67e22;color:#7d4e00;background:#fef9f0;">
-  <strong>📌 提醒</strong>
-  各項目是否適合您，需依個人病史、手術類型與麻醉方式而定。實際是否使用，請與麻醉科醫師討論。
+<div id="view-items">
+  <div class="items-header">
+    <button class="back-btn" onclick="closeCategory()">← 返回</button>
+    <div class="items-header-title" id="items-title"></div>
+  </div>
+  <div class="items-list" id="items-list"></div>
 </div>
 
-<!-- ══════════════ 止痛 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">💊</div>
-    止痛
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">神經阻斷術後止痛</div></div>
-      <div class="item-desc">在特定神經附近注射麻醉藥，讓手術部位維持<b>數小時麻木感</b>，減輕手術後的疼痛感。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">硬脊膜外自控式止痛</div></div>
-      <div class="item-desc">在背部<b>放置給藥管路</b>，術後可以自己<b>按按鈕控制</b>給藥時間，適合腹部等傷口較大的手術。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">靜脈自控式止痛</div></div>
-      <div class="item-desc">透過手上的點滴，可以<b>自己按按鈕控制</b>給藥時間，緩解疼痛更即時。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">Precedex（普利斯德）</div></div>
-      <div class="item-desc">兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>不會抑制呼吸</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">Acetamol 舒疼消熱注射劑（靜脈注射乙醯氨酚）</div></div>
-      <div class="item-desc">點滴版的「<b>普拿疼</b>」，藥效比口服更快發揮，能有效<b>減少術後對強效止痛藥的需求</b>，減少副作用。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">Dynastat（得術泰）</div></div>
-      <div class="item-desc">點滴注射的<b>消炎止痛藥</b>，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（<b>約降低三成</b>）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">多模式術後止痛</div></div>
-      <div class="item-desc">結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ 止吐 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">🌿</div>
-    止吐
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">Aloxi（嘔立舒）</div></div>
-      <div class="item-desc">強效、長效的止吐藥，是目前少數能同時預防<b>「急性」與「延遲性」</b>噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ OMT ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">⚡</div>
-    最適肌張力監測（OMT）
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">最適肌力處置（OMT，最適肌張力手術輔助處置）</div></div>
-      <div class="item-desc">手術中利用手部皮膚貼片刺激神經、測量手指肌肉張力，持續偵測肌肉放鬆的程度，確保<b>肌肉鬆弛劑用量恰到好處</b>。手術結束時，再搭配新一代專一性解藥（sugammadex），直接中和體內的肌肉鬆弛劑，讓肌肉力量<b>迅速且完全恢復</b>。可避免<b>肌肉殘餘麻痺</b>造成的術後無力、喘不過氣，讓呼吸恢復更順暢安全。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ 麻醉深度監測 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">🧠</div>
-    麻醉深度監測
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">BIS 麻醉深度監測</div></div>
-      <div class="item-desc">在額頭貼上感應貼片，即時偵測大腦前額的腦波活動並換算成數字（<b>0～100 分</b>），分數越高代表越清醒，<b>40～60 分</b>代表已達全身麻醉的深度。可確保麻醉<b>不會太淺</b>（避免術中清醒、留下不好的記憶），也<b>不會太深</b>（避免藥物過量、甦醒變慢）。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">腦部血氧濃度監測（rSO₂）</div></div>
-      <div class="item-desc">在額頭貼上感應器，即時監測<b>腦部的氧氣供應</b>狀況，適合較長或較複雜的手術（如心臟手術），可<b>提早發現腦部血流或供氧不足</b>，降低術後腦部相關風險。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">術中疼痛指數監測（ANI，持續疼痛監測）</div></div>
-      <div class="item-desc">透過<b>心跳的細微變化</b>，間接偵測您在麻醉中對疼痛的即時反應。因為麻醉時無法用言語表達痛感，這項監測能幫助麻醉科醫師<b>更精準地調整止痛藥用量</b>，讓麻醉更個人化。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ 體溫控制 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">🌡️</div>
-    體溫控制
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">溫毯手術體溫控制術</div></div>
-      <div class="item-desc">手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免<b>體溫過低</b>所引起的<b>寒顫</b>、出血增加及術後不適。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ 鎮靜 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">😴</div>
-    舒適鎮靜
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">舒適鎮靜處置術</div></div>
-      <div class="item-desc">適用在不需全身麻醉的手術或檢查，給予短效鎮靜藥讓您在<b>放鬆、半睡眠的狀態</b>下完成，減少緊張與焦慮，過程通常<b>不太會留下記憶</b>。全程由麻醉專業人員監測<b>呼吸、心跳、血壓與血氧</b>，並依處置時間長短調整藥物劑量與監測強度，確保安全舒適。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">Byfavo（倍佛若）</div></div>
-      <div class="item-desc">新一代短效鎮靜藥，<b>起效快、代謝迅速</b>，且有專屬拮抗劑（flumazenil）可<b>快速恢復意識</b>，安全性較傳統鎮靜藥更高。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ 呼吸道 ══════════════ -->
-<div class="category open">
-  <div class="category-title" onclick="toggleCategory(this.closest('.category'))">
-    <div class="icon">💨</div>
-    呼吸道管理
-    <div class="cat-chevron">▾</div>
-  </div>
-  <div class="category-body">
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">進階呼吸道通氣術（喉頭罩 LMA／影像式插管系統）</div></div>
-      <div class="item-desc">全身麻醉時，運用喉頭罩（LMA）或影像式插管系統協助維持<b>呼吸道暢通</b>，比傳統面罩更穩定、也<b>減少插管對喉嚨的刺激</b>；尤其適合手術姿勢特殊或呼吸道較困難（如肥胖、短頸、張口困難）的病人，提升麻醉安全並降低術後喉嚨不適。</div>
-    </div>
-    <div class="item-card" onclick="toggleItem(this)">
-      <div class="item-header"><div class="checkbox"></div><div class="item-name">高流量氧氣鼻導管（HFNC，高流速氧氣處置術）</div></div>
-      <div class="item-desc">透過鼻導管提供加溫、加濕的高流量氧氣（每分鐘可達 <b>60～70 公升</b>，遠高於傳統面罩），穩定血氧、減少插管機會，配戴時仍能<b>說話進食</b>，常用於術中或術後輔助呼吸，提升麻醉安全與舒適度。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ FAB ══════════════ -->
 <div class="fab-wrap">
   <button class="fab hidden" id="fabBtn" onclick="openSummary()">
-    查看我的選項
-    <div class="badge" id="fabBadge">0</div>
+    查看我的選項 <div class="badge" id="fabBadge">0</div>
   </button>
 </div>
 
-<!-- ══════════════ Summary Modal ══════════════ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeSummaryOnOverlay(event)">
-  <div class="modal" id="summaryModal">
+  <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-header">
-      <h2>我想了解的項目</h2>
-      <p>請將此畫面出示給醫師</p>
-    </div>
+    <div class="modal-header"><h2>我想了解的項目</h2><p>請將此畫面出示給醫師</p></div>
     <div class="modal-body">
-      <div class="modal-intro">
-        以下是您勾選希望在術前訪視時進一步了解的麻醉自費項目，醫師將針對這些項目為您說明。
-      </div>
+      <div class="modal-intro">以下是您勾選希望在術前訪視時進一步了解的麻醉自費項目，醫師將針對這些項目為您說明。</div>
       <div id="summaryContent"></div>
     </div>
     <button class="modal-close-btn" onclick="closeSummary()">← 返回繼續瀏覽</button>
@@ -535,54 +181,95 @@
 </div>
 
 <script>
-  function toggleCategory(cat) {
-    cat.classList.toggle('open');
+const CATEGORIES = [
+  { title: '我怕手術後很痛', items: [
+    { name: '神經阻斷術後止痛', desc: '在特定神經附近注射麻醉藥，讓手術部位維持<b>數小時麻木感</b>，減輕手術後的疼痛感。' },
+    { name: '硬脊膜外自控式止痛', desc: '在背部<b>放置給藥管路</b>，術後可以自己<b>按按鈕控制</b>給藥時間，適合腹部等傷口較大的手術。' },
+    { name: '靜脈自控式止痛', desc: '透過手上的點滴，可以<b>自己按按鈕控制</b>給藥時間，緩解疼痛更即時。' },
+    { name: '多模式術後止痛', desc: '結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。' },
+    { name: 'Acetamol 舒疼消熱注射劑（靜脈注射乙醯氨酚）', desc: '點滴版的「<b>普拿疼</b>」，藥效比口服更快發揮，能有效減少術後對強效止痛藥的需求，減少副作用。' },
+    { name: 'Dynastat（得術泰）', desc: '點滴注射的<b>消炎止痛藥</b>，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（<b>約降低三成</b>）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。' },
+    { name: 'Precedex（普利斯德）', desc: '兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>不會抑制呼吸</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。' },
+    { name: 'Naldebain 長效型止痛藥', desc: '術前注射的<b>長效止痛藥</b>，藥效可持續 <b>24 小時以上</b>，能從手術前就建立止痛保護，減少術後對嗎啡類止痛藥的需求，同時降低噁心嘔吐等副作用，讓恢復過程更舒適。' }
+  ]},
+  { title: '我怕醒來想吐、頭暈、不舒服', items: [
+    { name: 'Aloxi（嘔立舒）', desc: '強效、長效的止吐藥，是目前少數能同時預防<b>「急性」與「延遲性」</b>噁心嘔吐的第二代藥物，適合術後容易噁心嘔吐、或預計使用較多止痛藥的病人。' }
+  ]},
+  { title: '我怕麻醉太深、太淺，或醒來不順利', items: [
+    { name: 'BIS 麻醉深度監測', desc: '在額頭貼上感應貼片，即時偵測大腦前額的腦波活動並換算成數字（<b>0～100 分</b>），分數越高代表越清醒，<b>40～60 分</b>代表已達全身麻醉的深度。可確保麻醉<b>不會太淺</b>（避免術中清醒、留下不好的記憶），也<b>不會太深</b>（避免藥物過量、甦醒變慢）。' },
+    { name: '術中疼痛指數監測（ANI，持續疼痛監測）', desc: '透過<b>心跳的細微變化</b>，間接偵測您在麻醉中對疼痛的即時反應。因為麻醉時無法用言語表達痛感，這項監測能幫助麻醉科醫師<b>更精準地調整止痛藥用量</b>，讓麻醉更個人化。' },
+    { name: '腦部血氧濃度監測（rSO₂）', desc: '在額頭貼上感應器，即時監測<b>腦部的氧氣供應</b>狀況，適合較長或較複雜的手術（如心臟手術），可<b>提早發現腦部血流或供氧不足</b>，降低術後腦部相關風險。' }
+  ]},
+  { title: '我怕呼吸不順、發冷發抖，想讓過程更安心舒服', items: [
+    { name: '最適肌力處置（OMT，最適肌張力手術輔助處置）', desc: '手術中利用手部皮膚貼片刺激神經、測量手指肌肉張力，持續偵測肌肉放鬆的程度，確保<b>肌肉鬆弛劑用量恰到好處</b>。手術結束時，再搭配新一代專一性解藥（sugammadex），讓肌肉力量<b>迅速且完全恢復</b>，可避免<b>肌肉殘餘麻痺</b>造成的術後無力、喘不過氣。' },
+    { name: '高流量氧氣鼻導管（HFNC，高流速氧氣處置術）', desc: '透過鼻導管提供加溫、加濕的高流量氧氣（每分鐘可達 <b>60～70 公升</b>，遠高於傳統面罩），穩定血氧、減少插管機會，配戴時仍能<b>說話進食</b>，常用於術中或術後輔助呼吸。' },
+    { name: '溫毯手術體溫控制術', desc: '手術中使用充氣式溫毯覆蓋身體，維持正常體溫，避免<b>體溫過低</b>所引起的<b>寒顫</b>、出血增加及術後不適。' },
+    { name: '舒適鎮靜處置術', desc: '適用在不需全身麻醉的手術或檢查，給予短效鎮靜藥讓您在<b>放鬆、半睡眠的狀態</b>下完成，過程通常<b>不太會留下記憶</b>。全程監測<b>呼吸、心跳、血壓與血氧</b>，確保安全舒適。' },
+    { name: 'Byfavo（倍佛若）', desc: '新一代短效鎮靜藥，<b>起效快、代謝迅速</b>，且有專屬拮抗劑（flumazenil）可<b>快速恢復意識</b>，安全性較傳統鎮靜藥更高。' }
+  ]}
+];
+
+const checkedSet = new Set();
+
+function openCategory(catIndex) {
+  const cat = CATEGORIES[catIndex];
+  document.getElementById('items-title').textContent = cat.title;
+  const list = document.getElementById('items-list');
+  list.innerHTML = cat.items.map((item, i) => {
+    const key = `${catIndex}-${i}`;
+    const checked = checkedSet.has(key);
+    return `<div class="item-card${checked?' checked':''}" onclick="toggleItem(this,'${key}')"><div class="item-header"><div class="checkbox"></div><div class="item-name">${item.name}</div></div><div class="item-desc">${item.desc}</div></div>`;
+  }).join('');
+  document.getElementById('view-grid').style.display = 'none';
+  document.getElementById('view-items').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function closeCategory() {
+  document.getElementById('view-items').style.display = 'none';
+  document.getElementById('view-grid').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function toggleItem(card, key) {
+  card.classList.toggle('checked');
+  checkedSet.has(key) ? checkedSet.delete(key) : checkedSet.add(key);
+  updateFAB();
+}
+
+function updateFAB() {
+  const count = checkedSet.size;
+  document.getElementById('fabBadge').textContent = count;
+  document.getElementById('fabBtn').classList.toggle('hidden', count === 0);
+}
+
+function openSummary() {
+  const byCategory = {};
+  checkedSet.forEach(key => {
+    const [ci, ii] = key.split('-').map(Number);
+    const t = CATEGORIES[ci].title;
+    if (!byCategory[t]) byCategory[t] = [];
+    byCategory[t].push(CATEGORIES[ci].items[ii].name);
+  });
+  let html = '';
+  for (const [cat, items] of Object.entries(byCategory)) {
+    html += `<div class="summary-category"><div class="summary-cat-title">${cat}</div>`;
+    items.forEach(item => { html += `<div class="summary-item">${item}</div>`; });
+    html += `</div>`;
   }
+  document.getElementById('summaryContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
-  function toggleItem(card) {
-    card.classList.toggle('checked');
-    updateFAB();
-  }
+function closeSummary() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-  function getChecked() {
-    return Array.from(document.querySelectorAll('.item-card.checked'));
-  }
-
-  function updateFAB() {
-    const count = getChecked().length;
-    document.getElementById('fabBadge').textContent = count;
-    document.getElementById('fabBtn').classList.toggle('hidden', count === 0);
-  }
-
-  function openSummary() {
-    const byCategory = {};
-    getChecked().forEach(card => {
-      const cat = card.closest('.category').querySelector('.category-title').childNodes[2].textContent.trim();
-      if (!byCategory[cat]) byCategory[cat] = [];
-      byCategory[cat].push(card.querySelector('.item-name').textContent.trim());
-    });
-
-    let html = '';
-    for (const [cat, items] of Object.entries(byCategory)) {
-      html += `<div class="summary-category"><div class="summary-cat-title">${cat}</div>`;
-      items.forEach(item => { html += `<div class="summary-item">${item}</div>`; });
-      html += `</div>`;
-    }
-
-    document.getElementById('summaryContent').innerHTML = html;
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeSummary() {
-    document.getElementById('modalOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function closeSummaryOnOverlay(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeSummary();
-  }
+function closeSummaryOnOverlay(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeSummary();
+}
 </script>
-
 </body>
 </html>
