@@ -128,7 +128,7 @@
     <div class="subtitle">讓您在手術前，更清楚知道有哪些方式<br>可以提升安全、舒適與恢復品質</div>
   </div>
 </div>
-<div class="instructions"><strong>📋 使用方式</strong>選擇您最在意的項目，進入後勾選有興趣了解的選項，完成後點「查看我的選項」出示給醫師。</div>
+<div class="instructions"><strong>📋 使用方式</strong>選擇您最在意的項目，進入後勾選有興趣了解的選項，完成後點「我的麻醉清單」出示給醫師。</div>
 <div class="notice"><strong>📌 提醒</strong>各項目是否適合您，需依個人病史、手術類型與麻醉方式而定。實際是否使用，請與麻醉科醫師討論。</div>
 <div class="cat-grid">
   <div class="cat-card" data-cat="0" onclick="openCategory(0)">
@@ -164,7 +164,7 @@
 
 <div class="fab-wrap">
   <button class="fab hidden" id="fabBtn" onclick="openSummary()">
-    查看我的選項 <div class="badge" id="fabBadge">0</div>
+    我的麻醉清單 <div class="badge" id="fabBadge">0</div>
   </button>
 </div>
 
@@ -173,7 +173,7 @@
     <div class="modal-handle"></div>
     <div class="modal-header"><h2>我想了解的項目</h2><p>請將此畫面出示給醫師</p></div>
     <div class="modal-body">
-      <div class="modal-intro">以下是您勾選希望在術前訪視時進一步了解的麻醉自費項目，醫師將針對這些項目為您說明。</div>
+      <div class="modal-intro">以下是您勾選想進一步了解的麻醉照護選項。術前訪視時，麻醉醫師會依照您的手術方式、身體狀況與在意的需求，和您一起討論適合的安排。</div>
       <div id="summaryContent"></div>
     </div>
     <button class="modal-close-btn" onclick="closeSummary()">← 返回繼續瀏覽</button>
@@ -189,7 +189,7 @@ const CATEGORIES = [
     { name: '多模式術後止痛', desc: '結合<b>多種藥物與技術</b>，從不同角度減輕術後疼痛，比單靠一種止痛藥效果更好、<b>副作用也更少</b>。' },
     { name: 'Acetamol 舒疼消熱注射劑（靜脈注射乙醯氨酚）', desc: '點滴版的「<b>普拿疼</b>」，藥效比口服更快發揮，能有效減少術後對強效止痛藥的需求，減少副作用。' },
     { name: 'Dynastat（得術泰）', desc: '點滴注射的<b>消炎止痛藥</b>，針對術後發炎性疼痛特別有效。與嗎啡併用時，可用較低劑量的嗎啡（<b>約降低三成</b>）達到同樣的止痛效果，能減少嗎啡類藥物的用量與副作用。' },
-    { name: 'Precedex（普利斯德）', desc: '兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>不會抑制呼吸</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。' },
+    { name: 'Precedex（普利斯德）', desc: '兼具鎮靜與止痛效果，可減少其他麻醉藥的用量。它的特別之處是<b>對呼吸抑制相對較少</b>，術後醒來較舒適，對心血管也相對穩定（較常見的反應是<b>心跳偏慢</b>，會在儀器監測下使用）。' },
     { name: 'Naldebain 長效型止痛藥', desc: '術前施打的長效止痛針，可在手術後提供較持續的<b>背景止痛</b>，幫助減少術後幾天的疼痛不適。' }
   ]},
   { title: '我怕醒來想吐、頭暈、不舒服', items: [
